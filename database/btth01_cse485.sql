@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 27, 2023 at 09:09 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th2 22, 2023 lúc 02:47 AM
+-- Phiên bản máy phục vụ: 10.4.27-MariaDB
+-- Phiên bản PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `btth01_cse485`
+-- Cơ sở dữ liệu: `btth01_cse485`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `baiviet`
+-- Cấu trúc bảng cho bảng `baiviet`
 --
 
 CREATE TABLE `baiviet` (
@@ -40,7 +40,7 @@ CREATE TABLE `baiviet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `baiviet`
+-- Đang đổ dữ liệu cho bảng `baiviet`
 --
 
 INSERT INTO `baiviet` (`ma_bviet`, `tieude`, `ten_bhat`, `ma_tloai`, `tomtat`, `noidung`, `ma_tgia`, `ngayviet`, `hinhanh`) VALUES
@@ -61,7 +61,7 @@ INSERT INTO `baiviet` (`ma_bviet`, `tieude`, `ten_bhat`, `ma_tloai`, `tomtat`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tacgia`
+-- Cấu trúc bảng cho bảng `tacgia`
 --
 
 CREATE TABLE `tacgia` (
@@ -71,7 +71,7 @@ CREATE TABLE `tacgia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tacgia`
+-- Đang đổ dữ liệu cho bảng `tacgia`
 --
 
 INSERT INTO `tacgia` (`ma_tgia`, `ten_tgia`, `hinh_tgia`) VALUES
@@ -87,7 +87,7 @@ INSERT INTO `tacgia` (`ma_tgia`, `ten_tgia`, `hinh_tgia`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `theloai`
+-- Cấu trúc bảng cho bảng `theloai`
 --
 
 CREATE TABLE `theloai` (
@@ -96,7 +96,7 @@ CREATE TABLE `theloai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `theloai`
+-- Đang đổ dữ liệu cho bảng `theloai`
 --
 
 INSERT INTO `theloai` (`ma_tloai`, `ten_tloai`) VALUES
@@ -109,33 +109,12 @@ INSERT INTO `theloai` (`ma_tloai`, `ten_tloai`) VALUES
 (7, 'Rock'),
 (8, 'R&B');
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `pass` varchar(16) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `pass`) VALUES
-(1, 'admin', 'admin'),
-(2, 'nguoidung1', '1234'),
-(3, 'nguoidung2', '1234');
-
---
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `baiviet`
+-- Chỉ mục cho bảng `baiviet`
 --
 ALTER TABLE `baiviet`
   ADD PRIMARY KEY (`ma_bviet`),
@@ -143,29 +122,23 @@ ALTER TABLE `baiviet`
   ADD KEY `ma_tloai` (`ma_tloai`);
 
 --
--- Indexes for table `tacgia`
+-- Chỉ mục cho bảng `tacgia`
 --
 ALTER TABLE `tacgia`
   ADD PRIMARY KEY (`ma_tgia`);
 
 --
--- Indexes for table `theloai`
+-- Chỉ mục cho bảng `theloai`
 --
 ALTER TABLE `theloai`
   ADD PRIMARY KEY (`ma_tloai`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `baiviet`
+-- Các ràng buộc cho bảng `baiviet`
 --
 ALTER TABLE `baiviet`
   ADD CONSTRAINT `baiviet_ibfk_1` FOREIGN KEY (`ma_tgia`) REFERENCES `tacgia` (`ma_tgia`),

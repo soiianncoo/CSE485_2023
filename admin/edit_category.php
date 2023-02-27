@@ -40,24 +40,42 @@
                 </div>
             </div>
         </nav>
-
     </header>
+    
     <main class="container mt-5 mb-5">
+        <?php
+            $conn= mysqli_connect('127.0.0.1','root','','btth01_cse485');
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT * from theloai where ma_tloai = ".$_GET['id'];
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_array($result);
+            if(!empty($_GET['action']) && $_GET['action'] == "update"){
+                if(!empty($_POST['txtCatName']) && isset($_POST['txtCatName'])){
+                    $update = mysqli_query($conn,"UPDATE `theloai` set `ten_tloai`='".$_POST['txtCatName']."' where `ma_tloai`=".$_POST['txtCatId']."");
+                    if(!empty($update)){?>
+                        <p>Sửa thể loại thành công</p><a href="./category.php">Quay lai trang thể loại</a>
+                    <?php exit;}else{
+                        echo 'Lỗi!';exit;
+                    }
+                }
+            }
+           
+        ?>
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Sửa thông tin thể loại</h3>
-                <form action="process_add_category.php" method="post">
+                <form action="?action=update&id=<?=$_GET['id']?>" method="post">
                 <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatId">Mã thể loại</span>
-                        <input type="text" class="form-control" name="txtCatId" readonly value="1">
+                        <input type="text" class="form-control" name="txtCatId" readonly value="<?=$row['ma_tloai']?>">
                     </div>
-
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" value = "Nhạc trữ tình">
+                        <input type="text" class="form-control" name="txtCatName" value = "<?=$row['ten_tloai']?>">
                     </div>
-
                     <div class="form-group  float-end ">
                         <input type="submit" value="Lưu lại" class="btn btn-success">
                         <a href="category.php" class="btn btn-warning ">Quay lại</a>

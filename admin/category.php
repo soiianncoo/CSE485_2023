@@ -57,26 +57,52 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nhạc trữ tình</td>
-                            <td>
-                                <a href="edit_category.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Nhạc cách mạng</td>
-                            <td>
-                                <a href="edit_category.php?id=2"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        <?php
+                            $conn= mysqli_connect('127.0.0.1','root','','btth01_cse485');
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+                            $sql = "SELECT * from theloai";
+                            // $del = "DELETE FROM theloai where  id ="
+                            $result = mysqli_query($conn, $sql);
+                            if(!empty($_GET['action']) && $_GET['action'] == "del"){
+                                $del = mysqli_query($conn, "DELETE from theloai where ma_tloai='".$_GET['id']."'");
+                                
+                            }
+                            if (mysqli_num_rows($result) > 0)  {
+                                $dem=1;
+                                while($row = mysqli_fetch_assoc($result)) {?>
+                                    <tr>
+                                        <th scope='row'><?=$dem?></th>
+                                        <td scope='row'><?=$row['ten_tloai']?></td>
+                                        <td>
+                                            <a href='edit_category.php?id=<?=$row['ma_tloai']?>'<i class='fa-solid fa-pen-to-square'></i></a>
+                                        </td>
+                                        <td>
+                                            <a href='?action=del&id=<?=$row['ma_tloai']?>'><i class='fa-solid fa-trash'></i></a>
+                                        </td>
+                                    </tr>                
+            
+                                        <?php $dem++;}
+                                    }
+                                    else {
+                                        echo "0 results";
+                                    }
+                                    mysqli_close($conn);
+
+                                    // foreach($data as $value){
+                                    //     echo "<tr>
+                                    //             <th scope='row'>".$value['ma_tloai']."</th>
+                                    //             <td>Nhạc trữ tình</td>
+                                    //             <td>
+                                    //                 <a href='edit_category.php?id=1'<i class='fa-solid fa-pen-to-square'></i></a>
+                                    //             </td>
+                                    //             <td>
+                                    //                 <a href=''><i class='fa-solid fa-trash'></i></a>
+                                    //             </td>
+                                    //         </tr>"; 
+                                    // }
+                                    ?>
                        
                     </tbody>
                 </table>

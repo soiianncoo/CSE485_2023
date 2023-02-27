@@ -58,20 +58,18 @@ require '../connect.php';
                 <div class="card mb-2" style="width: 100%;">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href="" class="text-decoration-none">Người dùng</a>
+                            <a href="edit_user.php" class="text-decoration-none">Người dùng</a>
                         </h5>
-                        <?php
-                        $sql = "select count(*) as slg from nguoidung";
-                        $resulf = mysqli_query($conn, $sql);
-                        if (mysqli_num_rows($resulf) > 0) {
-                            while ($row = mysqli_fetch_assoc($resulf)) {
-                                echo $row['slg'];
+                         <h5 class="h1 text-center">
+                           <?php
+                            $sql = "select count(*) as slg from users";
+                            $resulf = mysqli_query($conn, $sql);
+                            if (mysqli_num_rows($resulf) > 0) {
+                                while ($row = mysqli_fetch_assoc($resulf)) {
+                                    echo $row['slg'];
+                                }
                             }
-                        }
-                        ?>
-
-                        <h5 class="h1 text-center">
-
+                            ?> 
                         </h5>
                     </div>
                 </div>
@@ -146,7 +144,9 @@ require '../connect.php';
     <!-- <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">
         <h4 class="text-center text-uppercase fw-bold">TLU's music garden</h4>
     </footer>-->
-    <?php require '../footer.php'; ?>
+    <?php
+    require '../footer.php';
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 

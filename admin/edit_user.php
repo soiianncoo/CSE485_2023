@@ -32,7 +32,7 @@ require '../connect.php';
                 </thead>
                 <tbody>
                     <?php
-                    $sql = 'select * from baiviet';
+                    $sql = 'select * from users';
                     $resulf = mysqli_query($conn, $sql);
                     if (mysqli_num_rows($resulf) > 0) {
                         while ($row = mysqli_fetch_assoc($resulf)) {
@@ -43,7 +43,7 @@ require '../connect.php';
                                     <?php echo $row['id']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['']; ?>
+                                    <?php echo $row['username']; ?>
                                 </td>
                                 <td>
                                     <?php echo $row['pass']; ?>

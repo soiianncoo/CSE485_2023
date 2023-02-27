@@ -44,7 +44,7 @@
     
     <main class="container mt-5 mb-5">
         <?php
-            $conn= mysqli_connect('127.0.0.1','root','','btth01_cse485');
+            $conn= mysqli_connect('localhost:3300','root','','btth01_cse485');
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }

@@ -44,16 +44,26 @@
     </header>
     <main class="container mt-5 mb-5">
         <?php 
-        $conn= mysqli_connect('127.0.0.1','root','','btth01_cse485');
+        $conn= mysqli_connect('localhost:3300','root','','btth01_cse485');
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
+        $sql = 'select * from theloai';
+        $dem=0;
+        
+            $resulf = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($resulf) > 0) {
+                while ($row = mysqli_fetch_assoc($resulf)) 
+                $dem=$row ['ma_tloai'];}
+            $dem++;
+            
         if(!empty($_GET['action']) && $_GET['action'] == "add"){
             if(!empty($_POST['txtCatName']) && isset($_POST['txtCatName'])){
-                $insert = mysqli_query($conn, "INSERT INTO theloai (ma_tloai, ten_tloai) VALUES(NULL, '".$_POST['txtCatName']."')");
+                $insert = mysqli_query($conn, "INSERT INTO theloai (ma_tloai, ten_tloai) VALUES($dem, '".$_POST['txtCatName']."')");
                 if(!empty($conn)){?>
                     <p>Nhập tên thể loại thành công</p><a href="./category.php">Quay lại trang thể loại</a>
-                <?php exit;}else{
+                <?php exit;}
+                else{
                     echo 'Lỗi';
                 }
             }else{

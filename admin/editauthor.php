@@ -28,10 +28,10 @@
                         <a class="nav-link" href="../index.php">Trang ngoài</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="category.php">Thể loại</a>
+                        <a class="nav-link active fw-bold" href="category.php">Thể loại</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active fw-bold" href="author.php">Tác giả</a>
+                        <a class="nav-link" href="author.php">Tác giả</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="article.php">Bài viết</a>
@@ -40,60 +40,47 @@
                 </div>
             </div>
         </nav>
-
     </header>
+    
     <main class="container mt-5 mb-5">
+        <?php
+            $conn= mysqli_connect('localhost:3300','root','','btth01_cse485');
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT * from tacgia where ma_tgia = ".$_GET['id'];
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_array($result);
+            if(!empty($_GET['action']) && $_GET['action'] == "update"){
+                if(!empty($_POST['txtCatName']) && isset($_POST['txtCatName'])){
+                    $update = mysqli_query($conn,"UPDATE `tacgia` set `ten_tgia`='".$_POST['txtCatName']."' where `ma_tgia`=".$_POST['txtCatId']."");
+                    if(!empty($update)){?>
+                        <p>Sửa Tác giả thành công</p><a href="./author.php">Quay lai trang thể loại</a>
+                    <?php exit;}else{
+                        echo 'Lỗi!';exit;
+                    }
+                }
+            }
+           
+        ?>
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
             <div class="col-sm">
-                <a href="addauthor.php" class="btn btn-success">Thêm mới</a>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tên Tác giả</th>
-                            <th>Sửa</th>
-                            <th>Xóa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            $conn= mysqli_connect('localhost:3300','root','','btth01_cse485');
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-                            $sql = "SELECT * from tacgia";
-                            // $del = "DELETE FROM tacgia where  id ="
-                            $result = mysqli_query($conn, $sql);
-                            if(!empty($_GET['action']) && $_GET['action'] == "del"){
-                                $del = mysqli_query($conn, "DELETE from tacgia where ma_tgia='".$_GET['id']."'");
-                                
-                            }
-                            if (mysqli_num_rows($result) > 0)  {
-                                $dem=1;
-                                while($row = mysqli_fetch_assoc($result)) {?>
-                                    <tr>
-                                        <th scope='row'><?=$dem?></th>
-                                        <td scope='row'><?=$row['ten_tgia']?></td>
-                                        <td>
-                                            <a href='editauthor.php?id=<?=$row['ma_tgia']?>'<i class='fa-solid fa-pen-to-square'></i></a>
-                                        </td>
-                                        <td>
-                                            <a href='?action=del&id=<?=$row['ma_tgia']?>'><i class='fa-solid fa-trash'></i></a>
-                                        </td>
-                                    </tr>                
-            
-                                        <?php $dem++;}
-                                    }
-                                    else {
-                                        echo "0 results";
-                                    }
-                                    mysqli_close($conn);
-
-                                    ?>
-                       
-                    </tbody>
-                </table>
+                <h3 class="text-center text-uppercase fw-bold">Sửa thông tin Tác Giả </h3>
+                <form action="?action=update&id=<?=$_GET['id']?>" method="post">
+                <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="lblCatId">Mã tác giả</span>
+                        <input type="text" class="form-control" name="txtCatId" readonly value="<?=$row['ma_tgia']?>">
+                    </div>
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="lblCatName">Tên Tác Giả</span>
+                        <input type="text" class="form-control" name="txtCatName" value = "<?=$row['ten_tgia']?>">
+                    </div>
+                    <div class="form-group  float-end ">
+                        <input type="submit" value="Lưu lại" class="btn btn-success">
+                        <a href="category.php" class="btn btn-warning ">Quay lại</a>
+                    </div>
+                </form>
             </div>
         </div>
     </main>

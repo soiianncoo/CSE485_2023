@@ -1,5 +1,5 @@
 <?php
-$host = "localhost";
+$host = "localhost:3300";
 $user = "root";
 $pass = "";
 $dbname = "btth01_cse485";
